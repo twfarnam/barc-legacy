@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Barc" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="240" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Battery Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FTM-nE-MaB">
+                                <rect key="frame" x="250" y="591" width="102" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WMY-tK-efg" userLabel="4:3 View">
+                                <rect key="frame" x="0.0" y="81" width="601" height="450"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DqC-ER-fVQ">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
+                                        <color key="backgroundColor" red="0.9991258978843689" green="1" blue="0.4640653133392334" alpha="1" colorSpace="calibratedRGB"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Output Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q33-Lg-7qz">
+                                        <rect key="frame" x="194" y="203" width="212" height="45"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="37"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Elg-2E-EKr" customClass="BoxView" customModule="Barc" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lgy-yK-DiZ">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="450"/>
+                                        <connections>
+                                            <action selector="startButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uP6-7K-vKI"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="40X-WZ-E3d" userLabel="Button Label">
+                                        <rect key="frame" x="279" y="21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Elg-2E-EKr" firstAttribute="top" secondItem="WMY-tK-efg" secondAttribute="top" id="6Xd-6d-69x"/>
+                                    <constraint firstItem="40X-WZ-E3d" firstAttribute="top" secondItem="WMY-tK-efg" secondAttribute="top" constant="21" id="AqY-Vv-zkD"/>
+                                    <constraint firstAttribute="width" secondItem="WMY-tK-efg" secondAttribute="height" multiplier="4:3" id="CR8-Az-QIJ"/>
+                                    <constraint firstItem="Elg-2E-EKr" firstAttribute="leading" secondItem="WMY-tK-efg" secondAttribute="leading" id="D2o-iZ-u2U"/>
+                                    <constraint firstItem="DqC-ER-fVQ" firstAttribute="trailing" secondItem="WMY-tK-efg" secondAttribute="trailing" id="G1n-vY-sqs"/>
+                                    <constraint firstItem="Q33-Lg-7qz" firstAttribute="centerY" secondItem="WMY-tK-efg" secondAttribute="centerY" id="Ggg-Lc-vI7"/>
+                                    <constraint firstItem="Lgy-yK-DiZ" firstAttribute="trailing" secondItem="WMY-tK-efg" secondAttribute="trailing" id="Ke5-RG-d29"/>
+                                    <constraint firstItem="Elg-2E-EKr" firstAttribute="trailing" secondItem="WMY-tK-efg" secondAttribute="trailing" id="QAv-9L-CzM"/>
+                                    <constraint firstItem="Q33-Lg-7qz" firstAttribute="centerX" secondItem="WMY-tK-efg" secondAttribute="centerX" id="V8P-A4-CDt"/>
+                                    <constraint firstItem="Lgy-yK-DiZ" firstAttribute="bottom" secondItem="WMY-tK-efg" secondAttribute="bottom" id="azM-B2-JeC"/>
+                                    <constraint firstItem="40X-WZ-E3d" firstAttribute="centerX" secondItem="WMY-tK-efg" secondAttribute="centerX" id="gF6-74-DCi"/>
+                                    <constraint firstItem="DqC-ER-fVQ" firstAttribute="top" secondItem="WMY-tK-efg" secondAttribute="top" id="geC-Wn-IRb"/>
+                                    <constraint firstItem="Elg-2E-EKr" firstAttribute="bottom" secondItem="WMY-tK-efg" secondAttribute="bottom" id="jiQ-5k-ZBO"/>
+                                    <constraint firstItem="DqC-ER-fVQ" firstAttribute="bottom" secondItem="WMY-tK-efg" secondAttribute="bottom" id="qeu-DA-dMO"/>
+                                    <constraint firstItem="Lgy-yK-DiZ" firstAttribute="top" secondItem="WMY-tK-efg" secondAttribute="top" id="rLv-3m-TAA"/>
+                                    <constraint firstItem="Lgy-yK-DiZ" firstAttribute="leading" secondItem="WMY-tK-efg" secondAttribute="leading" id="wB3-cL-bye"/>
+                                    <constraint firstItem="DqC-ER-fVQ" firstAttribute="leading" secondItem="WMY-tK-efg" secondAttribute="leading" id="xI0-hw-Sx3"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Looking for Sensor..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ezx-Ed-IiC">
+                                <rect key="frame" x="222" y="0.0" width="157" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WMY-tK-efg" firstAttribute="top" secondItem="Ezx-Ed-IiC" secondAttribute="bottom" constant="10" id="CT5-V0-Dpu"/>
+                            <constraint firstItem="WMY-tK-efg" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="IYa-Mw-vO2"/>
+                            <constraint firstItem="FTM-nE-MaB" firstAttribute="top" secondItem="WMY-tK-efg" secondAttribute="bottom" constant="10" id="Ndx-2G-Y2a"/>
+                            <constraint firstItem="WMY-tK-efg" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Zhd-En-aHh"/>
+                            <constraint firstItem="FTM-nE-MaB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="a99-CN-cuw"/>
+                            <constraint firstItem="Ezx-Ed-IiC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="stN-Q1-d5J"/>
+                            <constraint firstItem="WMY-tK-efg" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="t27-pE-brH"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="FTM-nE-MaB"/>
+                                <exclude reference="WMY-tK-efg"/>
+                                <exclude reference="Ezx-Ed-IiC"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="stN-Q1-d5J"/>
+                                <exclude reference="CT5-V0-Dpu"/>
+                                <exclude reference="IYa-Mw-vO2"/>
+                                <exclude reference="Zhd-En-aHh"/>
+                                <exclude reference="t27-pE-brH"/>
+                                <exclude reference="Ndx-2G-Y2a"/>
+                                <exclude reference="a99-CN-cuw"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular">
+                            <mask key="subviews">
+                                <include reference="FTM-nE-MaB"/>
+                                <include reference="WMY-tK-efg"/>
+                                <include reference="Ezx-Ed-IiC"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="stN-Q1-d5J"/>
+                                <include reference="CT5-V0-Dpu"/>
+                                <include reference="IYa-Mw-vO2"/>
+                                <include reference="Zhd-En-aHh"/>
+                                <include reference="t27-pE-brH"/>
+                                <include reference="Ndx-2G-Y2a"/>
+                                <include reference="a99-CN-cuw"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="batteryLabel" destination="FTM-nE-MaB" id="QQL-6D-fys"/>
+                        <outlet property="buttonLabel" destination="40X-WZ-E3d" id="Gdi-1z-BEh"/>
+                        <outlet property="depthImage" destination="DqC-ER-fVQ" id="fcq-oc-0ag"/>
+                        <outlet property="outputLabel" destination="Q33-Lg-7qz" id="mYA-wJ-W3l"/>
+                        <outlet property="startButton" destination="Lgy-yK-DiZ" id="EWG-c8-YjQ"/>
+                        <outlet property="statusLabel" destination="Ezx-Ed-IiC" id="DtY-Tj-FkZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="242" y="528.75"/>
+        </scene>
+    </scenes>
+</document>
