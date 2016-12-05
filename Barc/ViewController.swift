@@ -15,17 +15,12 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     
     // MARK: Properties
     
-    var active: Bool = false
-    
     var depth: Float = Float.nan
 
-
     @IBOutlet weak var statusLabel: UILabel!
-    @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var depthImage: UIImageView!
     @IBOutlet weak var outputLabel: UILabel!
     @IBOutlet weak var batteryLabel: UILabel!
-    @IBOutlet weak var buttonLabel: UILabel!
     
     var lastClick: Date = Date()
     
@@ -34,11 +29,8 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     let synth = AVSpeechSynthesizer()
     var utterance = AVSpeechUtterance(string: "")
     
-    var clickSound : SystemSoundID = 0
-    var humPlayer : AVAudioPlayer!
-    
     var toRGBA : STDepthToRgba?
-   
+    
     
     
     
@@ -46,17 +38,10 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         outputLabel.text = " "
         batteryLabel.text = " "
         
-        if let clickURL = Bundle.main.url(forResource: "click", withExtension: "wav") {
-            AudioServicesCreateSystemSoundID(clickURL as CFURL, &clickSound)
-        }
-
-        humPlayer = try? AVAudioPlayer.init(contentsOf: Bundle.main.url(forResource: "500", withExtension: "wav")!)
-        humPlayer.numberOfLoops = -1;
-       
         // puts yelow border on the yellow image
         let color = UIColor.yellow;
         depthImage.layer.borderColor = color.withAlphaComponent(0.3).cgColor;
@@ -67,7 +52,6 @@ class ViewController: UIViewController, STSensorControllerDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.appDidBecomeActive), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(ViewController.appWillEnterBackground), name:NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,60 +63,40 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     }
     
     func appDidBecomeActive() {
-        start()
+        do{
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            do{
+                try AVAudioSession.sharedInstance().setActive(true)
+                start()
+            } catch {
+                
+            }
+        } catch {
+            
+        }
     }
-    
-    
-    
-    
-    
-    
-    
     
     
     
     
     // MARK: Start/Stop
     
-    
-    @IBAction func startButton(_ sender: AnyObject) {
-        if (active) {
-            stop()
-            speak("stopped")
+    func start() {
+        if tryInitializeSensor() && tryStartStreaming() {
+            outputLabel.text =  ""
+            //statusLabel.text = "Connected"
         } else {
-            if start() {
-                speak("started")
-            }
-        }
-    }
-    
-    
-    func start() -> Bool {
-        if STSensorController.shared().isConnected() && tryStartStreaming() {
-            active = true
-            buttonLabel.text = "Stop"
-            return true
-        }
-        else {
-            speak("sensor not connected")
-            stop()
-            return false
+            outputLabel.text =  ""
+            //statusLabel.text = "Disconnected"
         }
     }
     
     
     func stop() {
-        active = false
         STSensorController.shared().stopStreaming()
         depthImage.image = nil
         outputLabel.text = " "
-        buttonLabel.text = "Start"
     }
-    
-    
-    
-    
-    
     
     
     
@@ -140,28 +104,29 @@ class ViewController: UIViewController, STSensorControllerDelegate {
    
     func speak(_ words: String) {
         // only do it if the application is active, otherwise it will play when it reactivates (awkward...)
-        if (UIApplication.shared.applicationState == .active) {
+        //if (UIApplication.shared.applicationState == .active) {
             utterance = AVSpeechUtterance(string: words)
-            utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-            utterance.rate = 0.5
+            utterance.voice = AVSpeechSynthesisVoice(language: "en-US")
+            utterance.rate = AVSpeechUtteranceMaximumSpeechRate / 1.7
+            utterance.volume = 1.0
             synth.speak(utterance)
-        }
+        //}
     }
     
-    func setClickRate(_ depth : Float) {
-        if depth.isNaN {
-            humPlayer.play()
-        }
-        else {
-            humPlayer.stop()
-            
-            let rate = Double(depth/150)
-            
-            if lastClick.timeIntervalSinceNow * -1 > rate {
-                print(lastClick.timeIntervalSinceNow, rate);
-                lastClick = Date()
-                AudioServicesPlaySystemSound(clickSound);
+    
+    func speakDepth(_ depth : Float) {
+        if !synth.isSpeaking {
+            var formatted: String = ""
+            if depth.isNaN {
+                formatted = "No reading"
             }
+            else if depth < 24 {
+                formatted = String(format: "%.0f", depth)
+            }
+            else {
+                formatted = String(format: "%.0f", depth / 12) + " feet"
+            }
+            speak(formatted)
         }
     }
     
@@ -178,36 +143,21 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     
     
     
-    
     // MARK: Data
     
     func getDepth(_ depthData : UnsafeMutablePointer<Float>, w: Int, h: Int) -> Float {
-        
-        let colStart = Int(Double(w) * 0.25)
-        let colEnd = Int(Double(w) * 0.75)
-        let rowStart = Int(Double(h) * 0.25)
-        let rowEnd = Int(Double(h) * 0.75)
-        
-        var depthArray: [Float] = []
-        for row in rowStart...rowEnd {
-            for column in colStart...colEnd {
-                let depth = depthData[row * w + column] / 25.4
-                if (!depth.isNaN) {
-                    depthArray.append(depth)
-                }
-            }
-        }
-   
+
         var min: Float = Float.nan
-        for depth in depthArray {
+        for i in 0...(w*h-1) {
+            let depth = depthData[i]
             if (min.isNaN || depth < min) {
                 min = depth
             }
         }
         
-        return min;
+        return min / 25.4;
     }
-   
+    
     
     func imageFromPixels(_ pixels : UnsafeMutablePointer<UInt8>, width: Int, height: Int) -> UIImage? {
         let colorSpace = CGColorSpaceCreateDeviceRGB();
@@ -216,17 +166,18 @@ class ViewController: UIViewController, STSensorControllerDelegate {
         let provider = CGDataProvider(data: Data(bytes: UnsafePointer<UInt8>(pixels), count: width*height*4) as CFData)
         
         let image = CGImage(
-            width: width,                       //width
-            height: height,                      //height
-            bitsPerComponent: 8,                           //bits per component
-            bitsPerPixel: 8 * 4,                       //bits per pixel
-            bytesPerRow: width * 4,                   //bytes per row
-            space: colorSpace,                  //Quartz color space
-            bitmapInfo: bitmapInfo,                  //Bitmap info (alpha channel?, order, etc)
-            provider: provider!,                    //Source of data for bitmap
-            decode: nil,                         //decode
-            shouldInterpolate: false,                       //pixel interpolation
-            intent: CGColorRenderingIntent.defaultIntent);     //rendering intent
+            width: width,
+            height: height,
+            bitsPerComponent: 8,
+            bitsPerPixel: 8 * 4,
+            bytesPerRow: width * 4,
+            space: colorSpace,
+            bitmapInfo: bitmapInfo,
+            provider: provider!,
+            decode: nil,
+            shouldInterpolate: false,
+            intent: CGColorRenderingIntent.defaultIntent
+        );
         
         return UIImage(cgImage: image!)
     }
@@ -242,25 +193,22 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     // MARK: Sensor Callbacks
    
     func sensorDidOutputDepthFrame(_ depthFrame: STDepthFrame!) {
-        if (!active) {
-            return;
-        }
         
         let depth = getDepth(depthFrame.depthInMillimeters, w: Int(depthFrame.width), h: Int(depthFrame.height))
         
-        writeLabel(depth)
-        setClickRate(depth)
+        speakDepth(depth)
+        //writeLabel(depth)
         
-        if let renderer = toRGBA {
-            let pixels = renderer.convertDepthFrame(toRgba: depthFrame)
-            depthImage.image = imageFromPixels(pixels!, width: Int(renderer.width), height: Int(renderer.height))
-        }
+        //if let renderer = toRGBA {
+        //   let pixels = renderer.convertDepthFrame(toRgba: depthFrame)
+        //   depthImage.image = imageFromPixels(pixels!, width: Int(renderer.width), height: Int(renderer.height))
+        //}
     }
     
     
     func sensorDidConnect() {
-        statusLabel.text = "Connected"
-        speak("sensor connected")
+        //statusLabel.text = "Connected"
+        speak("connected")
         start()
         updateBatteryLevel()
         batteryTimer = Timer.scheduledTimer(timeInterval: TimeInterval(10), target: self, selector: #selector(updateBatteryLevel), userInfo: nil, repeats: true)
@@ -268,11 +216,11 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     
     
     func sensorDidDisconnect() {
-        statusLabel.text = "Disconnected"
-        speak("sensor disconnected")
+        //statusLabel.text = "Disconnected"
+        speak("disconnected")
         stop()
         batteryTimer.invalidate()
-        batteryLabel.text = " "
+        batteryLabel.text = ""
     }
     
     
@@ -291,7 +239,7 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     func sensorDidLeaveLowPowerMode() {}
     
     func sensorBatteryNeedsCharging() {
-        speak("depth sensor has low battery")
+        speak("depth scanner has low battery")
     }
 
     
@@ -312,6 +260,7 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     }
     
     
+    @discardableResult
     func tryStartStreaming() -> Bool {
         if tryInitializeSensor() {
             let options : [AnyHashable: Any] = [
@@ -336,24 +285,3 @@ class ViewController: UIViewController, STSensorControllerDelegate {
     
     
 }
-
-
-
-class BoxView: UIView {
-    
-    override func draw(_ rect: CGRect) {
-        
-        let h = rect.height
-        let w = rect.width
-        let color:UIColor = UIColor.white
-        
-        let centerRect = CGRect(x: (w * 0.25),y: (h * 0.25),width: (w * 0.5),height: (h * 0.5))
-        let path:UIBezierPath = UIBezierPath(rect: centerRect)
-        path.lineWidth = 2
-        
-        color.set()
-        path.stroke()
-    }
-    
-}
-

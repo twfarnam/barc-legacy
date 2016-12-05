@@ -18,8 +18,6 @@
 		072A40411D26C533001B7B0C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072A40401D26C533001B7B0C /* ImageIO.framework */; };
 		072A40431D26C53A001B7B0C /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072A40421D26C53A001B7B0C /* Accelerate.framework */; };
 		074D7B621D26CFFC00E96456 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 074D7B611D26CFFC00E96456 /* AVFoundation.framework */; };
-		074D7B661D26D32300E96456 /* click.wav in Resources */ = {isa = PBXBuildFile; fileRef = 074D7B651D26D32300E96456 /* click.wav */; };
-		07C6D3551DA3FF200081864F /* 500.wav in Resources */ = {isa = PBXBuildFile; fileRef = 07C6D3541DA3FF200081864F /* 500.wav */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,8 +35,6 @@
 		072A40421D26C53A001B7B0C /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
 		072A40441D26C59C001B7B0C /* Barc-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Barc-Bridging-Header.h"; sourceTree = "<group>"; };
 		074D7B611D26CFFC00E96456 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		074D7B651D26D32300E96456 /* click.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = click.wav; sourceTree = SOURCE_ROOT; };
-		07C6D3541DA3FF200081864F /* 500.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 500.wav; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,8 +78,6 @@
 				072A40251D26C432001B7B0C /* AppDelegate.swift */,
 				072A40271D26C432001B7B0C /* ViewController.swift */,
 				072A40291D26C432001B7B0C /* Main.storyboard */,
-				074D7B651D26D32300E96456 /* click.wav */,
-				07C6D3541DA3FF200081864F /* 500.wav */,
 				072A402C1D26C432001B7B0C /* Assets.xcassets */,
 				072A402E1D26C432001B7B0C /* LaunchScreen.storyboard */,
 				072A40311D26C432001B7B0C /* Info.plist */,
@@ -136,7 +130,7 @@
 				TargetAttributes = {
 					072A40211D26C432001B7B0C = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = T84TN32JLN;
+						DevelopmentTeam = J887U8CJQ3;
 						LastSwiftMigration = 0800;
 					};
 				};
@@ -164,11 +158,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				07C6D3551DA3FF200081864F /* 500.wav in Resources */,
 				072A40301D26C432001B7B0C /* LaunchScreen.storyboard in Resources */,
 				072A402D1D26C432001B7B0C /* Assets.xcassets in Resources */,
 				072A402B1D26C432001B7B0C /* Main.storyboard in Resources */,
-				074D7B661D26D32300E96456 /* click.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,7 +292,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T84TN32JLN;
+				DEVELOPMENT_TEAM = J887U8CJQ3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,7 +302,7 @@
 				INFOPLIST_FILE = Barc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-lc++";
-				PRODUCT_BUNDLE_IDENTIFIER = online.squids.Barc;
+				PRODUCT_BUNDLE_IDENTIFIER = online.squids.Barcc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Barc/Barc-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
@@ -321,7 +313,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = T84TN32JLN;
+				DEVELOPMENT_TEAM = J887U8CJQ3;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -331,7 +323,7 @@
 				INFOPLIST_FILE = Barc/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-lc++";
-				PRODUCT_BUNDLE_IDENTIFIER = online.squids.Barc;
+				PRODUCT_BUNDLE_IDENTIFIER = online.squids.Barcc;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Barc/Barc-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
